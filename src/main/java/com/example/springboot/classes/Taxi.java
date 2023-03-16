@@ -1,10 +1,13 @@
 package com.example.springboot.classes;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity(name="taxi")
 public class Taxi {
@@ -25,6 +28,12 @@ public class Taxi {
     
     @Column(name = "location")
     private String location;/**geo coordinates**/
+    
+   
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
     
     public int getTaxiId() {
         return taxiId;
@@ -65,4 +74,13 @@ public class Taxi {
     public void setLocation(String location) {
         this.location = location;
     }
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+    
 }

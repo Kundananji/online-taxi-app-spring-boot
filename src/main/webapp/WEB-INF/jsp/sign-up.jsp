@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -8,99 +8,85 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Online Taxi Application</title>
+        <title>Register Account</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
-        <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#!">Online Taxi</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">View Taxis</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Add Taxis</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Book Taxi</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Page header with logo and tagline-->
-        <header class="py-5 bg-light border-bottom mb-4">
-            <div class="container">
-                <div class="text-center my-5">
-                    <h1 class="fw-bolder">Welcome to Online Tax Booking!</h1>
-                    <p class="lead mb-0">Book Taxis fromt eh comfort of your home</p>
-                </div>
-            </div>
-        </header>
+        <jsp:include page="menu.jsp"></jsp:include>
         <!-- Page content-->
         <div class="container">
             <div class="row">
                 <!-- Blog entries-->
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                     <!-- Featured blog post-->
-                    <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="assets/cover.jpg" alt="..." /></a>
+                    <div class="card m-4">
+                       
                         <div class="card-body">
                             
-                            <h2 class="card-title">Book Online</h2>
-                            <p class="card-text">Book a taxi to anywhere from the comfort of your home!</p>
-                        
-                        </div>
-                    </div>       
-
-                </div>
-                <!-- Side widgets-->
-                <div class="col-lg-4">
-                    <!-- Search widget-->
-                    <div class="card mb-4">
-                        <div class="card-header"><h4>Find a Taxi</h4></div>
-                        <div class="card-body">
-                        
-				         <c:if test="${savedBooking}">
-				            <div class="alert alert-success">Your booking has been successfully received!</div>
+                        <c:if test="${savedRegistration}">
+				            <div class="alert alert-success m-3"><i class="bi bi-check"></i> Your account has been successfully created! You can now login. <a href="login">Click Here To Login</a></div>
 				        </c:if>
-                        <form:form action="booking/add" method="post" modelAttribute="booking">
+				        <c:if test="${savedRegistration==false}">
+				            <div class="alert alert-warning m-3"><c:out value = "${response.message}"/></div>
+				        </c:if>
+                        <form:form action="users/register" method="post" modelAttribute="userRegistration">
                             <div class="form-group">
                                 <form:label for="name" path="name">Enter Your Name</form:label>
                                 <form:input class="form-control" type="text" id="name" path="name" placeholder="Enter Your Name" aria-label="Enter Name"/>
                                 
                             </div>
                             <div class="form-group">
-                                <form:label for="email" path="email">Enter Your Email</form:label>
-                                <form:input class="form-control" type="email" id="email" path="email" placeholder="Enter Email" aria-label="Email"/>                                
+                                <form:label for="emailAddress" path="emailAddress">Enter Your Email</form:label>
+                                <form:input class="form-control" type="emailAddress" id="emailAddress" path="emailAddress" placeholder="Enter Email" aria-label="Email"/>                                
                             </div>
                             <div class="form-group">
-                                <form:label for="phoneNo" path="phoneNo">Enter Your Phone Number</form:label>
-                                <form:input class="form-control" type="text" id="phoneNo" path="phoneNo" placeholder="Enter Phone No." aria-label="Enter Phone No."/>                                
+                                <form:label for="phoneNumber" path="phoneNumber">Enter Your Phone Number</form:label>
+                                <form:input class="form-control" type="text" id="phoneNumber" path="phoneNumber" placeholder="Enter Phone No." aria-label="Enter Phone No."/>                                
                             </div>
                              <div class="form-group">
-                                <form:label for="pickUp" path="pickUp">Specify PickUp</form:label>
-                                <form:input class="form-control" type="text" id="pickUp" path="pickUp" placeholder="Enter Pickup" aria-label="Enter Pickup"/>                                
+                                <form:label for="password" path="Password">Password</form:label>
+                                <form:input class="form-control" type="password" id="password" path="password" placeholder="Enter Password" aria-label="Enter Password"/>                                
+                            </div>
+                           <div class="form-group">
+                                <form:label for="confirmPassword" path="confirmPassword">Confirm Password</form:label>
+                                <form:input class="form-control" type="password" id="confirmPassword" path="confirmPassword" placeholder="Confirm Password" aria-label="Confirm Password"/>                                
                             </div>
                             <div class="form-group">
-                                <form:label for="destination" path="destination">Specify Destination</form:label>
-                                <form:input class="form-control" type="text" id="destination" path="destination" placeholder="Enter Destination" aria-label="Enter Destination"/>                                
-                            </div>
-                            <input type="submit" name="action" value="Find Taxi" class="btn btn-primary mt-3"/>
+                             <form:label for="selectedUserType" path="selectedUserType">Select User Type</form:label>
+                             <form:select  path="selectedUserType" id="selectedUserType" class="form-control">
+							    <form:option value=""> --Select User Type--</form:option>
+							  
+							         <c:forEach items="${userRegistration.userTypes}" var="userType">
+								          <form:option value="${userType.userTypeId}">  <c:out value = "${userType.name}"/></form:option>
+								      </c:forEach>
+							  </form:select>
+							  </div>
+
+                            <input type="submit" name="action" value="Register" class="btn btn-primary mt-3"/>
                          </form:form>
                         </div>
-                    </div>
-        
-     
+                    </div>       
+
                 </div>
+                <div class="col-lg-6">
+                 <div class="card m-4">
+                 
+                   <div class="card-body">
+                   <a href="#!"><img class="img-fluid rounded" src="assets/cover.jpg" alt="Online Taxi Application" /></a>
+                   <h2>Sign Up for an Account</h2>
+                   <p>Sign up for an account and experience convenience at your finger tips</p>
+                   </div>
+                 
+                 </div>
+                 
+                </div>
+
             </div>
         </div>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Online Taxi Application 2023</p></div>
-        </footer>
+   <jsp:include page="footer.jsp"></jsp:include>
         <!-- Bootstrap core JS-->
         <script src="js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
