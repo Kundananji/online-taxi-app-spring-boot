@@ -255,12 +255,8 @@
       
       
 
-      var mapProp = {
-        center: currentPosition,
-        zoom: 15,
-      };
 
-      var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+      var map = new google.maps.Map(document.getElementById("googleMap"));
 
       currentMarker = null;
 
