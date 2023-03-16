@@ -27,9 +27,8 @@ public class Taxi {
     private String driverName;
     
     @Column(name = "location")
-    private String location;/**geo coordinates**/
-    
-   
+    private String location;/**geo coordinates**/   
+
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")

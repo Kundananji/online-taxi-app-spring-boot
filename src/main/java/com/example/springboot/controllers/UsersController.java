@@ -2,6 +2,7 @@ package com.example.springboot.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,7 @@ public class UsersController {
     }
     
     @PostMapping("/login")
-    public RedirectView addBook(@ModelAttribute("userLogin") UserLogin userLogin, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    public RedirectView addBook(@ModelAttribute("userLogin") UserLogin userLogin, RedirectAttributes redirectAttributes, HttpServletRequest request, Model model) {
         
     	final RedirectView redirectView;
        
@@ -52,8 +53,10 @@ public class UsersController {
         }
         else {
         	redirectView = new RedirectView("/login", true); //redirect back to login
+        	
         }
-        redirectAttributes.addFlashAttribute("response", response);      
+        model.addAttribute("response", response);
+              
         return redirectView;
     }
 

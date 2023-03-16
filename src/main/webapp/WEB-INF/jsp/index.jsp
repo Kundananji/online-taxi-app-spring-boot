@@ -21,7 +21,7 @@
             <div class="container">
                 <div class="text-center my-5">
                     <h1 class="fw-bolder">Welcome to Online Tax Booking!</h1>
-                    <p class="lead mb-0">Book Taxis fromt eh comfort of your home</p>
+                    <p class="lead mb-0">Book Taxis from the comfort of your home</p>
                 </div>
             </div>
         </header>
@@ -46,36 +46,26 @@
                 <div class="col-lg-4">
                     <!-- Search widget-->
                     <div class="card mb-4">
-                        <div class="card-header"><h4>Find a Taxi</h4></div>
+                        <div class="card-header"><h4>Login</h4></div>
                         <div class="card-body">
                         
-				         <c:if test="${savedBooking}">
-				            <div class="alert alert-success">Your booking has been successfully received!</div>
-				        </c:if>
-                        <form:form action="booking/add" method="post" modelAttribute="booking">
+                        <form:form action="users/login" method="post" modelAttribute="userLogin">
                             <div class="form-group">
-                                <form:label for="name" path="name">Enter Your Name</form:label>
-                                <form:input class="form-control" type="text" id="name" path="name" placeholder="Enter Your Name" aria-label="Enter Name"/>
+                                <form:label for="username" path="username">Enter Your Email or Phone Number</form:label>
+                                <form:input class="form-control" type="text" id="username" path="username" placeholder="Enter Email or phone Number" aria-label="Enter Email or Phone Number"/>
                                 
                             </div>
+                    
                             <div class="form-group">
-                                <form:label for="email" path="email">Enter Your Email</form:label>
-                                <form:input class="form-control" type="email" id="email" path="email" placeholder="Enter Email" aria-label="Email"/>                                
+                                <form:label for="password" path="password">Enter Password</form:label>
+                                <form:input class="form-control" type="password" id="password" path="password" placeholder="Enter Password" aria-label="Enter Password"/>                                
                             </div>
-                            <div class="form-group">
-                                <form:label for="phoneNo" path="phoneNo">Enter Your Phone Number</form:label>
-                                <form:input class="form-control" type="text" id="phoneNo" path="phoneNo" placeholder="Enter Phone No." aria-label="Enter Phone No."/>                                
-                            </div>
-                             <div class="form-group">
-                                <form:label for="pickUp" path="pickUp">Specify PickUp</form:label>
-                                <form:input class="form-control" type="text" id="pickUp" path="pickUp" placeholder="Enter Pickup" aria-label="Enter Pickup"/>                                
-                            </div>
-                            <div class="form-group">
-                                <form:label for="destination" path="destination">Specify Destination</form:label>
-                                <form:input class="form-control" type="text" id="destination" path="destination" placeholder="Enter Destination" aria-label="Enter Destination"/>                                
-                            </div>
-                            <input type="submit" name="action" value="Find Taxi" class="btn btn-primary mt-3"/>
+                            <input type="submit" name="action" value="Login" class="btn btn-primary mt-3"/>
                          </form:form>
+                         
+                        <p class="text-center"> <a href="sign-up">Create Account</a></p>
+                        
+
                         </div>
                     </div>
         
@@ -88,5 +78,7 @@
         <script src="js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
+        
+        
     </body>
 </html>

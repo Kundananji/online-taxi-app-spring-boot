@@ -1,4 +1,6 @@
 package com.example.springboot.classes;
+import java.io.Serializable;
+
 import org.hibernate.annotations.Table;
 
 import jakarta.persistence.Column;
@@ -9,7 +11,7 @@ import jakarta.persistence.Id;
 
 
 @Entity(name="booking")
-public class Booking {
+public class Booking implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
