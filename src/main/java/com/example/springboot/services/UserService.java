@@ -62,12 +62,13 @@ public class UserService {
 	}
 
 	public UserLoginResponse login(UserLogin userLogin) {
-		User user= this.userRepository.findByEmailAddressOrPhoneNumber(userLogin.getUsername(),userLogin.getPassword());
+		User user= this.userRepository.findByEmailAddressOrPhoneNumber(userLogin.getUsername(),userLogin.getUsername());
 		UserLoginResponse response = new UserLoginResponse();
 		
 		response.setStatus(Constants.SUCCESS);
 		response.setTitle("Successfully logged in");
 		response.setMessage("You have been successfully logged in!");
+		response.setUser(user);
 	
 		
 		if(user == null) {
@@ -86,6 +87,11 @@ public class UserService {
 		
 		return response;
 		 
+	}
+
+	public User getLoggedInUser(String username) {
+		
+		return this.userRepository.findByEmailAddressOrPhoneNumber(username,username);
 	}
 
 }

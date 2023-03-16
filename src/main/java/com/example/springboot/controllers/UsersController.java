@@ -15,6 +15,9 @@ import com.example.springboot.classes.UserRegistration;
 import com.example.springboot.services.UserService;
 import com.example.springboot.util.Constants;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/users")
 public class UsersController {
@@ -36,9 +39,20 @@ public class UsersController {
     }
     
     @PostMapping("/login")
-    public RedirectView addBook(@ModelAttribute("userLogin") UserLogin userLogin, RedirectAttributes redirectAttributes) {
-        final RedirectView redirectView = new RedirectView("/login", true);
+    public RedirectView addBook(@ModelAttribute("userLogin") UserLogin userLogin, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        
+    	final RedirectView redirectView;
+       
         UserLoginResponse response = userService.login(userLogin);
+        
+        //set sessin on login
+        if(response.getStatus().equals(Constants.SUCCESS)) {
+        	redirectView = new RedirectView("/dashboard", true); //redirect to dashboard
+        	request.getSession().setAttribute(Constants.SESSION_USERNAME,response.getUser().getEmailAddress());
+        }
+        else {
+        	redirectView = new RedirectView("/login", true); //redirect back to login
+        }
         redirectAttributes.addFlashAttribute("response", response);      
         return redirectView;
     }

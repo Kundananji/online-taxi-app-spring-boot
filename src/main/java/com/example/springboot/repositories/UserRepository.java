@@ -9,7 +9,7 @@ public interface UserRepository extends JpaRepository<User, Long>  {
 
 	User findByEmailAddressOrPhoneNumberAndPassword(String username,String phoneNumber, String password);
 
-	User findByEmailAddressOrPhoneNumber(String username, String password);
+	User findByEmailAddressOrPhoneNumber(String username,String phoneNumber);
 
 
 
