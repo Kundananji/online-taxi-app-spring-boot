@@ -31,31 +31,33 @@ public class UsersController {
 	}
 	
     @PostMapping("/register")
-    public RedirectView addBook(@ModelAttribute("userRegistration") UserRegistration userRegistration, RedirectAttributes redirectAttributes) {
+    public RedirectView registerUser(@ModelAttribute("userRegistration") UserRegistration userRegistration, RedirectAttributes redirectAttributes,Model model) {
         final RedirectView redirectView = new RedirectView("/sign-up", true);
         RegistrationResponse response = userService.registerUser(userRegistration);
-        redirectAttributes.addFlashAttribute("response", response);      
-        redirectAttributes.addFlashAttribute("savedRegistration", response.getStatus() == Constants.SUCCESS);
+        redirectAttributes.addFlashAttribute("status", response.getStatus());
+        redirectAttributes.addFlashAttribute("message", response.getMessage());
+        
         return redirectView;
     }
     
     @PostMapping("/login")
-    public RedirectView addBook(@ModelAttribute("userLogin") UserLogin userLogin, RedirectAttributes redirectAttributes, HttpServletRequest request, Model model) {
+    public RedirectView loginUser(@ModelAttribute("userLogin") UserLogin userLogin, RedirectAttributes redirectAttributes, HttpServletRequest request, Model model) {
         
     	final RedirectView redirectView;
        
         UserLoginResponse response = userService.login(userLogin);
         
-        //set sessin on login
+        //set session on login
         if(response.getStatus().equals(Constants.SUCCESS)) {
         	redirectView = new RedirectView("/dashboard", true); //redirect to dashboard
         	request.getSession().setAttribute(Constants.SESSION_USERNAME,response.getUser().getEmailAddress());
         }
         else {
-        	redirectView = new RedirectView("/login", true); //redirect back to login
+        	redirectView = new RedirectView("/login", true); //redirect back to login       	
         	
         }
-        model.addAttribute("response", response);
+        redirectAttributes.addFlashAttribute("status", response.getStatus());
+        redirectAttributes.addFlashAttribute("message", response.getMessage());
               
         return redirectView;
     }

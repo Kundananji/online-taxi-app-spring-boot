@@ -44,8 +44,41 @@
                     	<a href="#!"><img class="card-img-top" src="assets/cover.jpg" alt="..." /></a>
                     </c:if>
                        
-                        <div class="card-body">                            
+                        <div class="card-body">     
+                        
+                           <!-- taxi user views taxis -->   
+                                                  
+                             <c:if test="${loggedInUser.userType.name =='Taxi User'}">
+                             <h2 class="card-title">View Available Taxis</h2>
+                             <c:if test="${search == null || search.size()==0}">
+                                <div class="alert alert-warning">No Taxis found. Make your booking to view available taxis</div>
+                             </c:if>
+                             <c:if test="${search != null && search.size()>0}">
+                                <table class="table table-striped">
+						            <thead>
+						                <tr>
+						                    <th>RegNo.</th>
+						                    <th>Name</th>
+						                    <th>Driver</th>
+						                    <th>Distance Away</th>
+						                </tr>
+						            </thead>
+						            <tbody>
+						                <c:forEach items="${search}" var="taxi">
+						                    <tr>
+						                        <td>${taxi.registrationNumber}</td>
+						                        <td>${taxi.name}</td>
+						                        <td>${taxi.driverName}</td>
+						                        <td>${String.format("%.2f",taxi.distance)} Kilometers</td>
+						                    </tr>
+						                </c:forEach>
+						            </tbody>
+						        </table> 
+                            </c:if> 
+                            </c:if> 
+                                             
                             
+                            <!--  taxi owner views taxis -->
                              <c:if test="${loggedInUser.userType.name =='Taxi Owner'}">
                              <h2 class="card-title">View Your Taxis</h2>
                              <c:if test="${taxis == null || taxis.size()==0}">
@@ -72,9 +105,7 @@
 						            </tbody>
 						        </table> 
                             </c:if>  
-                            <c:if test="${loggedInUser.userType.name =='Taxi User'}">
-                                <p class="card-text">Book Your Taxis from the comfort of your home</p>   
-                            </c:if>                    
+                                     
                         </div>
                     </div>       
 

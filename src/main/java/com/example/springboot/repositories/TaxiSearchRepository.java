@@ -1,5 +1,7 @@
 package com.example.springboot.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +12,8 @@ import com.example.springboot.classes.User;
 public interface TaxiSearchRepository extends JpaRepository<TaxiSearch, Long> {
 
 	void deleteByUser(User loggedInUser);
+
+	List<TaxiSearch> findByUser(User loggedInUser);
 
 
 }

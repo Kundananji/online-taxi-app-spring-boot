@@ -35,11 +35,15 @@ public class TaxiService {
 		return this.taxiRepository.findByUser(loggedInUser);
 	}
 	public void deleteSearch(User loggedInUser) {
-		this.taxiSearchRepository.deleteAll();
+		this.taxiSearchRepository.deleteByUser(loggedInUser);
 		
 	}
 	public void addSearch(ArrayList<TaxiSearch> search) {
 		this.taxiSearchRepository.saveAll(search);
 		
 	}
+	public List<TaxiSearch> getSearchByUser(User loggedInUser) {
+		return this.taxiSearchRepository.findByUser(loggedInUser);
+	}
+
 }

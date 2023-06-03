@@ -1,6 +1,8 @@
 package com.example.springboot.classes;
 
+
 public class RegistrationResponse {
+
 	private String status;
 	private String message;
 	private String title;

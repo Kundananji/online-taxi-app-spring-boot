@@ -32,6 +32,9 @@ public class TaxiSearch {
     
     @Column(name = "distance")
     private Double distance; //how far away the taxi is
+    
+    @Column(name = "time_of_arrival")
+    private String timeOfArrival; //how far away the taxi is
 
     //owner of the search
     @ManyToOne(cascade = CascadeType.ALL)
@@ -106,7 +109,16 @@ public class TaxiSearch {
 	public void setBooking(Booking booking) {
 		this.booking = booking;
 	}
+
+	public String getTimeOfArrival() {
+		return timeOfArrival;
+	}
+
+	public void setTimeOfArrival(String timeOfArrival) {
+		this.timeOfArrival = timeOfArrival;
+	}
     
+	
 
     
 }

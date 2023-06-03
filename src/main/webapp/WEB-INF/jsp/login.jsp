@@ -49,11 +49,11 @@
                         <div class="card-header"><h4>Login</h4></div>
                         <div class="card-body">
                         
-				         <c:if test="${response !=null && response.status == 'success'}">
+				         <c:if test="${status!=null && status == 'success'}">
 				            <div class="alert alert-success">Login Successful!</div>
 				        </c:if>
-				        <c:if test="${response !=null && response.status != 'success'}">
-				            <div class="alert alert-warning">${response.message}</div>
+				        <c:if test="${status !=null && status != 'success'}">
+				            <div class="alert alert-warning">${message}</div>
 				        </c:if>
                         <form:form action="users/login" method="post" modelAttribute="userLogin">
                             <div class="form-group">

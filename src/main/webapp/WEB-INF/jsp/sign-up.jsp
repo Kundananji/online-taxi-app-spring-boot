@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -26,11 +26,11 @@
                        
                         <div class="card-body">
                             
-                        <c:if test="${savedRegistration}">
+                        <c:if test="${status!=null && status=='success'}">
 				            <div class="alert alert-success m-3"><i class="bi bi-check"></i> Your account has been successfully created! You can now login. <a href="login">Click Here To Login</a></div>
 				        </c:if>
-				        <c:if test="${savedRegistration==false}">
-				            <div class="alert alert-warning m-3"><c:out value = "${response.message}"/></div>
+				        <c:if test="${status!=null && status!='success'}">
+				            <div class="alert alert-warning m-3"><c:out value = "${message}"/></div>
 				        </c:if>
                         <form:form action="users/register" method="post" modelAttribute="userRegistration">
                             <div class="form-group">
@@ -40,7 +40,7 @@
                             </div>
                             <div class="form-group">
                                 <form:label for="emailAddress" path="emailAddress">Enter Your Email</form:label>
-                                <form:input class="form-control" type="emailAddress" id="emailAddress" path="emailAddress" placeholder="Enter Email" aria-label="Email"/>                                
+                                <form:input class="form-control" type="email" id="emailAddress" path="emailAddress" placeholder="Enter Email" aria-label="Email"/>                                
                             </div>
                             <div class="form-group">
                                 <form:label for="phoneNumber" path="phoneNumber">Enter Your Phone Number</form:label>

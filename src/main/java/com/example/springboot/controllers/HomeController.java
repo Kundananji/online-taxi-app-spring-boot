@@ -11,6 +11,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.springboot.classes.Booking;
 import com.example.springboot.classes.Taxi;
+import com.example.springboot.classes.TaxiSearch;
 import com.example.springboot.classes.User;
 import com.example.springboot.classes.UserLogin;
 import com.example.springboot.classes.UserRegistration;
@@ -42,6 +43,7 @@ public class HomeController {
 	   		 
 	   	 }
 	   	 model.addAttribute("booking",new Booking());
+	   	 model.addAttribute("userLogin",new UserLogin());
         return "index";
     }
     
@@ -51,6 +53,7 @@ public class HomeController {
 	    Booking booking = new Booking();
 	    List<Taxi> taxis = new ArrayList<>();
 	    Taxi taxi = new Taxi();
+	    List<TaxiSearch> search = new ArrayList<>();
 	   
 	   	 if(username!=null) {
 	   		 User loggedInUser = this.userService.getLoggedInUser(username);
@@ -62,11 +65,14 @@ public class HomeController {
 	   		 
 	   		taxis = this.taxiService.getTaxisByUser(loggedInUser);
 	   		taxi.setUser(loggedInUser);
+	   		
+	   		search = this.taxiService.getSearchByUser(loggedInUser);
 	   		 
 	   	 }
 	   	 model.addAttribute("booking",booking);
 	   	 model.addAttribute("taxis",taxis);
 	   	 model.addAttribute("taxi",taxi);
+	   	 model.addAttribute("search",search);
         return "dashboard";
     }
     
@@ -92,7 +98,7 @@ public class HomeController {
     public String login(Model model,HttpServletRequest request) { 
     	 UserLogin userLogin = new UserLogin();    	 
     	 model.addAttribute("userLogin", userLogin);
- 	    String username = (String) request.getSession().getAttribute(Constants.SESSION_USERNAME);
+ 	     String username = (String) request.getSession().getAttribute(Constants.SESSION_USERNAME);
 	   	 if(username!=null) {
 	   		 User loggedInUser = this.userService.getLoggedInUser(username);
 	   		 model.addAttribute("loggedInUser",loggedInUser);

@@ -43,9 +43,10 @@ public class BookingController {
     	String username = (String) request.getSession().getAttribute(Constants.SESSION_USERNAME);
         final RedirectView redirectView;  
         //redirect to dashboard if user is logged in
+        User loggedInUser = null;
         if(username!=null) {
-	   		 User loggedInUser = this.userService.getLoggedInUser(username);
-	   		 redirectView = new RedirectView("/dashboard", true);
+	   		  loggedInUser = this.userService.getLoggedInUser(username);
+	   		  redirectView = new RedirectView("/dashboard", true);
 	   		 
         }
         else {
@@ -54,13 +55,16 @@ public class BookingController {
         Booking savedBooking = bookingService.addBooking(booking);
         String[] userLocation = savedBooking.getPickUp().split(",");
         
+        //delete any existing searches
+        this.taxiService.deleteSearch(loggedInUser);
+        
         
         //get coordinates from saved booking
         
         //get all taxis stored in database, and calculate how far away they are
         List<Taxi> availableTaxis = this.taxiService.getTaxis();
         
-        ArrayList<TaxiSearch> search = new ArrayList<>()
+        ArrayList<TaxiSearch> search = new ArrayList<>();
         
         //loop through, computing the distance for each
         for(int i = 0; i<availableTaxis.size(); i++) {
@@ -71,15 +75,19 @@ public class BookingController {
         
         	TaxiSearch searchTaxi = new TaxiSearch();
         	searchTaxi.setBooking(savedBooking);
-        	searchTaxi.setDistance(distanceAway);
+        	searchTaxi.setDistance( distanceAway);
         	searchTaxi.setDriverName(taxi.getDriverName());
         	searchTaxi.setLocation(taxi.getLocation());
         	searchTaxi.setName(taxi.getName());
         	searchTaxi.setRegistrationNumber(taxi.getRegistrationNumber());
+        	searchTaxi.setUser(loggedInUser);
         
+        	search.add(searchTaxi);
         
         }
         
+        //save search list to database
+        this.taxiService.addSearch(search);        
         
         
         

@@ -11,7 +11,8 @@ import jakarta.persistence.ManyToOne;
 
 @Entity(name="user")
 public class User {
-    @Id
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
 	private long userId;
